@@ -1,0 +1,77 @@
+crear repositorio de git
+
+Si obligan a hacerlo desde la terminal:
+
+git init
+git commit -m "first commit"
+git remote add origin https://github.com/juan260/repoVacio.git
+git push -u origin master
+
+bajarse
+dentro:
+  django-admin.py startproject *tango_with_django_project*
+  dentro:
+    django-admin.py startapp *app*
+
+añadir a allowed_hosts los hosts que te digan sin el http
+  Antes de cada allowed host poner una u, por ejemplo:
+
+  ALLOWED_HOSTS = [u'localhost:8000']
+
+añadir la app a INSTALLED_APPS en settings
+cambiar la variable databases:
+
+  import dj_database_url
+  DATABASES={}
+  if os.getenv('SQLITE',False):
+    DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3', 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),}
+  else:
+    DATABASES['default']=dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/*EL NOMBRE DE TU DATABASE*')
+
+
+añadir al PRINCIPIO PRINCIPIO del script de populate Y EN ESTE ORDEN:
+  import os
+  os.environ.setdefault('DJANGO_SETTINGS_MODULE',
+      '*Nombre del proyecto*.settings')
+  import django
+  django.setup()
+
+registrar los modelos en el admin.py
+
+
+me quiero morir <3
+
+El script de populate se tiene que crear
+en la carpeta raiz para que funcione init.sh
+y tiene que ser solo un script de python
+
+Si tiene que ser un command leer los comentarios
+de init.sh
+
+pip freeze > requirements.txt
+borrar los requerimientos que no se utilicen (opcional creo)
+añadir a los requerimientos:
+  gunicorn==19.6.0
+
+crear un fichero runtime.txt que contenga:
+python-2.7.14
+
+añadir a wsgi.py:
+  from django.core.wsgi import get_wsgi_application
+  from dj_static import Cling
+  application = Cling(get_wsgi_application())
+
+heroku login
+heroku create
+Apuntar el nombre que sale en heroku create y añadirlo a allowed hosts
+
+git add *
+git commit -m 'asdf'
+git push
+git push heroku master
+si sale el error: 'heroku' does not appear to be
+  a git repository:
+  heroku git:remote -a *yourapp*
+
+heroku open
+:D
